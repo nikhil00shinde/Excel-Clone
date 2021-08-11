@@ -1,0 +1,131 @@
+*{
+    box-sizing: border-box;
+}
+ body{
+     margin: 0;
+     font-family: 'Montserrat', sans-serif;
+ }
+
+.container{
+    height: 100vh;
+    width: 100vw;
+}
+.top-section{
+    height: 4%;
+    background-color: #2ecc71;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+.file-option-section{
+    height: 4%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+.file-option-section div{
+    margin-left: 40px;
+}
+
+.menu-bar-option{
+    height: 8%;
+  background-color: #27ae60;
+}
+.visible-section{
+    height: 4%;
+    background-color: white;
+    display: flex;
+}
+.visible-section div{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+}
+.visible-section input{
+    height: 100%;
+    display: block;
+    width: 80%;
+    outline: none;
+    border: 1px solid;
+}
+.grid
+{
+    height: 76%;
+    position: relative;
+    overflow: auto;
+}
+.blank-corner{
+    height: 30px;
+    background-color: grey;
+    width: 30px;
+    position: fixed;
+    top: 20%;
+}
+
+.row-numbers{
+     height: 30px;
+     width: 30px;
+     background-color: #27ae60;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border: 0;
+     border-bottom: 1px solid;
+     color: white;
+}
+.column-number-section{
+    height: 30px;
+    background-color: #27ae60;
+    position: fixed;
+    top: 20%;
+    z-index: -10;
+    display: flex;
+    left: 30px;
+}
+.column-number{
+    height: 30px;
+    width: 80px;
+    border: 0;
+    border-right: 1px solid;
+    color: white;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-numbers-section{
+    position: fixed;
+    left: 0;
+    z-index: -10;
+    top: calc( 20vh + 30px );
+}
+.sheet-corner{
+    height: 4%;
+    background-color: #2ecc71;
+}
+.cell-section{
+    height: calc( 76vh - 30px );
+    width: calc( 100vw - 30px );
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    overflow: auto;
+}
+.row{
+   display: flex;
+
+}
+.cell{
+    height: 30px;
+    width: 80px;
+    flex-shrink: 0;
+    border: 1px solid;
+}
+.cell-selected{
+    border: 2px solid blue;
+}
