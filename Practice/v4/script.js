@@ -68,6 +68,21 @@ for(let i=1;i<=100;i++)
 
 
         let cellDiv = document.createElement("div");
+
+
+       cellDiv.addEventListener("input",function(e)
+       {
+           //jis cell pr type kra uske attribute se maine uska cell address fetch kra
+           let currCellAddress = e.currentTarget.getAttribute("data-address");
+
+           //kuki sare cell objects dataObj me store ho rakhe h using their cell address as key
+           //maine jis cell pr click krke type kra uska hi address fetch and uska hi object chahiye
+           //to wo address as key use krke dataObj se fetch krlia req cellObj ko
+           let currCellObj = dataObj[currCellAddress];
+           currCellObj.value = e.currentTarget.innerText;
+           console.log(currCellObj);
+       })
+
         cellDiv.classList.add("cell");
         cellDiv.setAttribute("contenteditable",true);
         cellDiv.addEventListener("click",function(e)
