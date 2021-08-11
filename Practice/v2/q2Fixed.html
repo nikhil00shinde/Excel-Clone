@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            margin: 0;
+        }
+        .container{
+            height: 20rem;
+            width: 20rem;
+            border: 1px solid;
+            position: fixed;
+            top: 50vh;
+            left: 50vw;
+            transform: translate(-50%,-50%);
+        }
+        .top,.middle,.bottom{
+            height: 10rem;
+            width: 10rem;
+            position: fixed;
+        }
+        .top{
+            top: 0;
+            left: 0;
+            background-color: indigo;
+        }
+        .middle{
+            top: 10rem;
+            left: 10rem;
+            transform: translate(-50%,-50%);
+            background-color: indianred;
+        }
+        .bottom{
+            bottom: 0;
+            right: 0;
+            background-color: lawngreen;
+        }
+
+    </style>
+<!-- If the parent position is fixed and if the child position is also fixed then the child will position WRT parent  -->
+</head>
+<body>
+    <div class="container">
+        <div class="top" ></div>
+        <div class="middle"></div>
+        <div class="bottom"></div>
+    </div>
+</body>
+</html>
