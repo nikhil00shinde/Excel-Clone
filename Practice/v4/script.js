@@ -109,6 +109,11 @@ for(let i=1;i<=100;i++)
            {
                updateCell(currDownstream[i]);
            }
+
+
+           dataObj[currCellAddress] = currCellObj;
+
+           console.log(currCellObj);
     
        })
 
@@ -131,6 +136,20 @@ for(let i=1;i<=100;i++)
     }
     cellSection.append(rowDiv)
 }
+
+//creating fake data
+dataObj["A1"].value = 20;
+dataObj["A1"].downstream = ["B1"];
+
+dataObj["B1"].formula = "2 * A1";
+dataObj["B1"].upstream = ["A1"];
+dataObj["B1"].value = 40;
+
+let a1cell = document.querySelector("[data-address='A1']");
+let b1cell = document.querySelector("[data-address='B1']");
+a1cell.innerText = 20;
+b1cell.innerText = 40;
+
 
 
 //C1 = Formula(2*A1)
@@ -168,8 +187,8 @@ function updateCell(cell)
 {
     let cellObj = dataObj[cell];
 
-    let upstream = dataObj.upstream;  //[(A1=10), B1=10]
-    let formula = dataObj.formula; // A1 + B1
+    let upstream = cellObj.upstream;  //[(A1=10), B1=10]
+    let formula = cellObj.formula; // A1 + B1
 
 
     //upstream me jobhi cell hai unke objects me jaunga whase unki value lekr aunga
@@ -203,4 +222,14 @@ function updateCell(cell)
     //20 + 10
 
     let newValue = eval(formula);
+
+    dataObj[cell].value = newValue;
+    let cell1 = document.querySelector(`[data-address=${cell}]`);
+    cell1.innerText =  newValue;
+    let downstream = cellObj.downstream;
+     //calling recursion on children 
+    for(let i=0;i<downstream.length;i++)
+    {
+        updateCell(downstream[i]);
+    }
 }
