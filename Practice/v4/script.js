@@ -1,11 +1,46 @@
 let rowNumberSection = document.querySelector(".rom-number-section");
 let cellSection  = document.querySelector(".cell-section");
-
+let formulaInputSection = document.querySelector(".formula-input-section");
 let columnTagSection = document.querySelector(".column-tag-section");
 let selectedCellFormulaBar = document.querySelector(".selected-cell-div");
-let lastCell;
 
+let lastCell;
 let dataObj = {};
+
+
+//now taking the input from formula bar
+formulaInputSection.addEventListener("keydown",function(e)
+{
+      if(e.key == "Enter")
+      {
+          let typedFormula = e.currentTarget.value;
+          
+          if(!lastCell) return;
+
+          let selectedCellAdd = lastCell.getAttribute("data-address");
+          let cellObj = dataObj[selectedCellAdd];
+
+          cellObj.formula = typedFormula;
+
+          let upstream = cellObj.upstream;
+
+          for(let i=0;i<upstream.length;i++)
+          {
+              removeFromDownstream(upstream[i],selectedCellAdd);
+          }
+          cellObj.upstream = [];
+      }
+})
+
+
+
+
+
+
+
+
+
+
 
 cellSection.addEventListener("scroll",function(e)
 {
@@ -100,7 +135,8 @@ for(let i=1;i<=100;i++)
 
            currCellObj.upstream = []
 
-
+          
+           //tumhare dependent ko update kar raha hain
            let currDownstream = currCellObj.downstream;
           
         //    C1(20) => [E1] E1 (2*C1) [40]
@@ -113,7 +149,7 @@ for(let i=1;i<=100;i++)
 
            dataObj[currCellAddress] = currCellObj;
 
-           console.log(currCellObj);
+           console.log(dataObj);
     
        })
 
@@ -220,12 +256,14 @@ function updateCell(cell)
     }
 
     //20 + 10
+    
 
+    //evaluate mathematical string to answer => "2 + 2" == 4
     let newValue = eval(formula);
 
     dataObj[cell].value = newValue;
-    let cell1 = document.querySelector(`[data-address=${cell}]`);
-    cell1.innerText =  newValue;
+    let cellOnUi = document.querySelector(`[data-address='${cell}']`);
+    cellOnUi.innerText =  newValue;
     let downstream = cellObj.downstream;
      //calling recursion on children 
     for(let i=0;i<downstream.length;i++)
