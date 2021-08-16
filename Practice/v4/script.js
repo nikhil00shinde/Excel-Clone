@@ -21,7 +21,7 @@ formulaInputSection.addEventListener("keydown",function(e)
           let cellObj = dataObj[selectedCellAdd];
 
           cellObj.formula = typedFormula;
-
+          
           let upstream = cellObj.upstream;
 
           for(let i=0;i<upstream.length;i++)
@@ -29,6 +29,34 @@ formulaInputSection.addEventListener("keydown",function(e)
               removeFromDownstream(upstream[i],selectedCellAdd);
           }
           cellObj.upstream = [];
+          for(let i=0;i<typedFormula.length-1;i++)
+          {
+              let char  = typedFormula[i];
+              let c = char.charCodeAt(char);
+
+              if(c >= 65 && c <= 90)
+              {
+                cellObj.upstream.push(typedFormula.substring(i,i+2));
+              }
+          }
+
+          for(let i=0;i<cellObj.upstream.length;i++)
+          {
+              let cell = cellObj.upstream[i];
+              let value = dataObj[cell].value
+              typedFormula = typedFormula.replace(cell,value);
+          }
+          
+          //updating the cell value from new formula by iterating over upstream
+          cellObj.value = eval(typedFormula);
+          lastCell.innerText = eval(typedFormula);
+          //now we have to update the  value of downstream cell (that mean this cell value is being used in their formula)
+          let downstream = cellObj.downstream;
+          for(let i=0;i<downstream.length;i++)
+          {
+              updateCell(downstream[i])
+          }
+
       }
 })
 
