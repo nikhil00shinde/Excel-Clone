@@ -1,7 +1,8 @@
 let allAlignmentOptions = document.querySelectorAll(".align-cell-content span");
 let allFontDropDown = document.querySelectorAll(".font-type-size select");
 let boldItalicUnderline = document.querySelectorAll(".bold-italic-underline span");
-
+let allColorOptions = document.querySelectorAll(".cell-color-option span");
+let body = document.querySelector("body");
 
 let leftAlign = allAlignmentOptions[0];
 let centerAlign = allAlignmentOptions[1];
@@ -129,3 +130,59 @@ underline.addEventListener("click",function(e)
        
     }
 })
+
+
+let bgColorPicker = allColorOptions[0];
+let fontColorPicker = allColorOptions[1];
+
+bgColorPicker.addEventListener("click",function(e)
+{
+        let colorPickerElement = document.createElement("input");
+        colorPickerElement.type = "color";
+        body.append(colorPickerElement);
+        colorPickerElement.click();
+
+        colorPickerElement.addEventListener("input",function(e)
+        {
+            if(lastCell)
+            {
+                lastCell.style.backgroundColor = e.currentTarget.value;
+                let address = lastCell.getAttribute("data-address");
+                dataObj[address].bgColor = e.currentTarget.value;
+                checkBody();
+            }
+        });
+        
+});
+
+fontColorPicker.addEventListener("click",function(e)
+{
+        let colorPickerElement = document.createElement("input");
+        colorPickerElement.type = "color";
+        body.append(colorPickerElement);
+        colorPickerElement.click();
+
+        colorPickerElement.addEventListener("input",function(e)
+        {
+            if(lastCell)
+            {
+                lastCell.style.color= e.currentTarget.value;
+                let address = lastCell.getAttribute("data-address");
+                dataObj[address].color = e.currentTarget.value;
+                checkBody();
+            }
+        });
+        
+});
+
+
+//for removing the input element from html
+function checkBody()
+{
+    let check = document.querySelectorAll("body > input");
+
+    for(let i=0;i<check.length;i++)
+    {
+        check[i].remove();
+    }
+}
