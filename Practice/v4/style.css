@@ -31,6 +31,7 @@ body {
 .menu-options-section {
   height: 8%;
   background-color: #2ecc71;
+  display: flex;
 }
 .formula-section {
   height: 4%;
@@ -136,4 +137,17 @@ body {
 
 .cell-selected{
   border: 2px solid blue;
+}
+.menu-options-section div{
+  border: 1px solid;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.bold-italic-underline,.align-cell-content,.cell-color-option{
+  width: 23%;
+}
+.font-type-size{
+  width: 31%;
 }

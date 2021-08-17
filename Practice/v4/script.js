@@ -81,6 +81,7 @@ formulaInputSection.addEventListener("keydown",function(e)
          }
          
          dataObj[selectedCellAdd] = cellObj;
+         e.currentTarget.value = ""
       }
 })
 
@@ -149,7 +150,13 @@ for(let i=1;i<=100;i++)
             value:undefined,
             formula:undefined,
             upstream: [],
-            downstream:[]
+            downstream:[],
+            align:"left",
+            color:"black",
+            bgColor:"white",
+            color:"black",
+            textSize: "10px",
+            textType: "Montserrat"
         };
 
 
@@ -200,7 +207,7 @@ for(let i=1;i<=100;i++)
 
 
            dataObj[currCellAddress] = currCellObj;
-
+           
         //    console.log(dataObj);
     
        })
@@ -219,7 +226,8 @@ for(let i=1;i<=100;i++)
         })
         cellDiv.setAttribute("data-address",cellAddress)
         rowDiv.append(cellDiv)
-
+       
+        
        
     }
     cellSection.append(rowDiv)

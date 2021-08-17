@@ -9,6 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
 </head>
 <body>
       <div class="container">
@@ -17,7 +20,53 @@
               <div>File</div>
               <div>Help</div>
           </div>
-          <div class="menu-options-section"></div>
+          <div class="menu-options-section">
+              <div class="bold-italic-underline">
+                <span class="material-icons">
+                    format_bold
+                </span>
+                <span class="material-icons">
+                    format_italic
+                </span>
+                <span class="material-icons">
+                    format_underlined
+                </span>
+              </div>
+              <div class="font-type-size">
+                  <select>
+                      <option>Montserrat</option>
+                      <option>Arial</option>
+                      <option>Times New Roman</option>
+                      <option>Trebuchet MS</option>
+                  </select>
+                  <select>
+                    <option>10</option>
+                    <option>16</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                </select>
+              </div>
+              <div class="align-cell-content">
+                <span class="material-icons">
+                    format_align_left
+                </span>
+                <span class="material-icons">
+                    format_align_center
+                </span>    
+                <span class="material-icons">
+                    format_align_right
+                </span>
+              </div>
+              <div class="cell-color-option">
+                <span class="material-icons">
+                    format_color_fill
+                </span>
+                <span class="material-icons">
+                    format_color_text
+                </span>       
+              </div>
+          </div>
           <div class="formula-section">
               <div class="selected-cell-div"></div>
               <input type="text" class="formula-input-section">
@@ -32,5 +81,6 @@
       </div>
 
     <script src="script.js"></script>
+    <script src="styleScript.js"></script>
 </body>
 </html>
