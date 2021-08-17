@@ -15,13 +15,17 @@ formulaInputSection.addEventListener("keydown",function(e)
       {
           let typedFormula = e.currentTarget.value;
           
+          //checking that the formula is typing for the cell that is selected or not 
           if(!lastCell) return;
 
           let selectedCellAdd = lastCell.getAttribute("data-address");
           let cellObj = dataObj[selectedCellAdd];
-
+         
+          //updating with new formula
           cellObj.formula = typedFormula;
-          
+           
+
+          //removing selectedCell from the old formula cell from upstream by going to their downstream w
           let upstream = cellObj.upstream;
 
           for(let i=0;i<upstream.length;i++)
@@ -29,34 +33,54 @@ formulaInputSection.addEventListener("keydown",function(e)
               removeFromDownstream(upstream[i],selectedCellAdd);
           }
           cellObj.upstream = [];
-          for(let i=0;i<typedFormula.length-1;i++)
-          {
-              let char  = typedFormula[i];
-              let c = char.charCodeAt(char);
+         
+         let formulaArr = typedFormula.split(" ");
+         let cellsInFormula = [];
 
-              if(c >= 65 && c <= 90)
-              {
-                cellObj.upstream.push(typedFormula.substring(i,i+2));
-              }
-          }
+         for(let i=0;i<formulaArr.length;i++)
+         {
+             if(formulaArr[i] != "+" && formulaArr[i] != "-" && formulaArr[i] != "/" && formulaArr[i] != "*" && isNaN(formulaArr[i]))
+             {
+                  cellsInFormula.push(formulaArr[i]);
+             } 
+         } 
 
-          for(let i=0;i<cellObj.upstream.length;i++)
-          {
-              let cell = cellObj.upstream[i];
-              let value = dataObj[cell].value
-              typedFormula = typedFormula.replace(cell,value);
-          }
-          
-          //updating the cell value from new formula by iterating over upstream
-          cellObj.value = eval(typedFormula);
-          lastCell.innerText = eval(typedFormula);
-          //now we have to update the  value of downstream cell (that mean this cell value is being used in their formula)
-          let downstream = cellObj.downstream;
-          for(let i=0;i<downstream.length;i++)
-          {
-              updateCell(downstream[i])
-          }
+         //adding new cell in upstream and adding to their downstream
+         for(let i=0;i<cellsInFormula.length;i++)
+         {
+             addToDownstream(cellsInFormula[i],selectedCellAdd); 
+         }
+        
+         cellObj.upstream = cellsInFormula;
+         
+         //this is to update formula's old value to the new value
+         let valObj = {};
 
+         for(let i=0;i<cellsInFormula.length;i++)
+         {
+             let cellValue = dataObj[cellsInFormula[i]].value;
+             valObj[cellsInFormula[i]] = cellValue;
+         }
+
+         for(let key in valObj)
+         {
+              typedFormula = typedFormula.replace(key,valObj[key]);
+         }
+
+         let newValue = eval(typedFormula);
+         cellObj.value = newValue;
+         lastCell.innerText = newValue;
+         
+
+         //now updating the value for the downstream that mean which depend on this cell
+         let downstream = cellObj.downstream;
+
+         for(let i=0;i<downstream.length;i++)
+         {
+             updateCell(downstream[i]);
+         }
+         
+         dataObj[selectedCellAdd] = cellObj;
       }
 })
 
@@ -177,7 +201,7 @@ for(let i=1;i<=100;i++)
 
            dataObj[currCellAddress] = currCellObj;
 
-           console.log(dataObj);
+        //    console.log(dataObj);
     
        })
 
@@ -200,19 +224,6 @@ for(let i=1;i<=100;i++)
     }
     cellSection.append(rowDiv)
 }
-
-//creating fake data
-dataObj["A1"].value = 20;
-dataObj["A1"].downstream = ["B1"];
-
-dataObj["B1"].formula = "2 * A1";
-dataObj["B1"].upstream = ["A1"];
-dataObj["B1"].value = 40;
-
-let a1cell = document.querySelector("[data-address='A1']");
-let b1cell = document.querySelector("[data-address='B1']");
-a1cell.innerText = 20;
-b1cell.innerText = 40;
 
 
 
@@ -298,4 +309,10 @@ function updateCell(cell)
     {
         updateCell(downstream[i]);
     }
+}
+
+function addToDownstream(parent,child)
+{
+    //child ko parent ki downstream mei add krna hai
+    dataObj[parent].downstream.push(child);
 }
