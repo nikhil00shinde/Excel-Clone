@@ -155,8 +155,11 @@ for(let i=1;i<=100;i++)
             color:"black",
             bgColor:"white",
             color:"black",
-            textSize: "10px",
-            textType: "Montserrat"
+            textSize: "16px",
+            textType: "Montserrat",
+            bold:"normal",
+            italic:"normal",
+            underline:""
         };
 
 
