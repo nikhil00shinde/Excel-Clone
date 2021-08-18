@@ -27,6 +27,7 @@ body {
 .menu-bar-section div {
   margin-left: 20px;
   color: black;
+  position: relative;
 }
 .menu-options-section {
   height: 8%;
@@ -150,4 +151,25 @@ body {
 }
 .font-type-size{
   width: 31%;
+}
+
+.file-drop-down{
+  position: absolute!important;
+  height: 4rem;
+  width: 4rem;
+  background-color: white;
+  left: -20px;
+  text-align: center;
+}
+
+.help-modal{
+  position: fixed!important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 10rem;
+  width: 16rem;
+  background-color: rgb(228, 228, 228);
+  text-align: center;
+  z-index: 90;
 }

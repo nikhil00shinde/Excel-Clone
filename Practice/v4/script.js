@@ -154,7 +154,6 @@ for(let i=1;i<=100;i++)
             align:"left",
             color:"black",
             bgColor:"white",
-            color:"black",
             textSize: "16px",
             textType: "Montserrat",
             bold:"normal",
@@ -235,8 +234,29 @@ for(let i=1;i<=100;i++)
     }
     cellSection.append(rowDiv)
 }
+//empty string is falsey value
+if(localStorage.getItem("sheet"))
+{
+       dataObj = JSON.parse(localStorage.getItem("sheet"));
+       for(let x in dataObj)
+       {
+           let cell = document.querySelector(`[data-address='${x}']`);
+           
+           if(dataObj[x].value)
+           {
+               cell.innerHTML = dataObj[x].value;  
+           }
+           cell.style.textAlign = dataObj[x].align;
+           cell.style.color = dataObj[x].color;
+           cell.style.backgroundColor = dataObj[x].bgColor;
+           cell.style.fontSize = dataObj[x].textSize;
+           cell.style.fontFamily = dataObj[x].textType;
+           cell.style.fontWeignt = dataObj[x].bold;
+           cell.style.fontStyle = dataObj[x].italic;
+           cell.style.textDecoration = dataObj[x].underline;
 
-
+       }
+}
 
 //C1 = Formula(2*A1)
 //A1 = parent

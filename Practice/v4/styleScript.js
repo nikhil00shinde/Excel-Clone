@@ -4,6 +4,8 @@ let boldItalicUnderline = document.querySelectorAll(".bold-italic-underline span
 let allColorOptions = document.querySelectorAll(".cell-color-option span");
 let body = document.querySelector("body");
 
+let menuBarOptions = document.querySelectorAll(".menu-bar-section div");
+
 let leftAlign = allAlignmentOptions[0];
 let centerAlign = allAlignmentOptions[1];
 let rightAlign = allAlignmentOptions[2];
@@ -186,3 +188,68 @@ function checkBody()
         check[i].remove();
     }
 }
+
+
+//help and file option
+let fileOption = menuBarOptions[0];
+let helpOption = menuBarOptions[1];
+
+fileOption.addEventListener("click",function(e)
+{
+    let isOpen = fileOption.getAttribute("data-open");
+      
+    if(isOpen == "true")
+    {
+          fileOption.setAttribute("data-open","false");
+          document.querySelector(".file-drop-down").remove();
+    }
+    else
+    {
+        let dropDown = document.createElement("div");
+        dropDown.classList.add("file-drop-down");
+        dropDown.innerHTML = `<p>Save</p>
+                              <p>Clear</p>`;
+        fileOption.append(dropDown);
+        
+        let allOptions = dropDown.querySelectorAll("p");
+  
+        let saveOption = allOptions[0];
+        let clearOption = allOptions[1];
+         
+        saveOption.addEventListener("click",function(e)
+        {
+            localStorage.setItem("sheet",JSON.stringify(dataObj));
+            // when we click on the save option in a file we have applied a attribute to check if div is present or not, basicall when we click it passes event to fileOption then automatically delete the div
+            // e.stopPropagation();
+        })
+        clearOption.addEventListener("click",function(e)
+        {
+                localStorage.setItem("sheet","");
+        })
+        fileOption.setAttribute("data-open","true");
+    } 
+});
+
+
+helpOption.addEventListener("click",function()
+{
+    let isOpen = helpOption.getAttribute("data-open");
+
+    if(isOpen == "true")
+    {
+        helpOption.setAttribute("data-open","false")
+        console.log(document.querySelector(".help-modal"));
+        document.querySelector(".help-modal").remove();
+    }
+    else
+    {
+        let modal = document.createElement("div");
+        modal.classList.add("help-modal");
+
+        modal.innerHTML = `<p>Excel Clone</p>
+                           <p>It perform Arithmetic Operation.</p>
+                           <p>It uses a Graph data structure.</p>`
+        helpOption.setAttribute("data-open","true")
+        helpOption.append(modal);
+    }
+})
